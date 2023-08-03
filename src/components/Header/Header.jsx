@@ -1,17 +1,20 @@
-import { Container } from '@mui/material';
+import { DivContainer } from 'components/pages/HomePage.styled';
 import React from 'react'
-import { NavLink} from "react-router-dom";
+import { Link, NavLink} from "react-router-dom";
 import { CustomHeader } from './Header.styled'
-
+import { SiThemoviedatabase } from 'react-icons/si';
 const Header = () => {
   return (
     <CustomHeader>
-      <Container>
+      <DivContainer>
+        <div style={{display: 'flex', alignItems: 'center', gap: 40}}>
+          <Link  to='/'><SiThemoviedatabase style={{ width: 44, height: 44 }} /></Link>
       <nav>
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/movies'>Movies</NavLink>
-        </nav>
-        </Container>
+        </nav>    
+        </div>
+        </DivContainer>
     </CustomHeader>
   )
 }

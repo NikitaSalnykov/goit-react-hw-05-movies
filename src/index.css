@@ -32,3 +32,13 @@ a{
   color: inherit;
   text-decoration: none;
 }
+
+.active{
+  color: rgb(235, 231, 0);
+}
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

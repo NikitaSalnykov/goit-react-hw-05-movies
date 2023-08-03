@@ -13,18 +13,18 @@ export const getTrendingMovies = async () => {
 }
   
 export const searchMovies  = async (query) => {
-  return axios.get(`${BASE_URL}${END_POINT.search}?query=${query}&api_key=${API_KEY}`).then(resp=>resp.data.results)
+  return axios.get(`${BASE_URL}${END_POINT.search}?query=${query}&api_key=${API_KEY}`).then(resp=>resp.data)
   }
   
 export const getMovieDetails = async (id) => {
-  return axios.get(`${BASE_URL}${END_POINT.details}/${id}?api_key=${API_KEY}`).then(resp=>resp)
+  return axios.get(`${BASE_URL}${END_POINT.details}/${id}?api_key=${API_KEY}`).then(resp=>resp.data)
   }
   
 export const getMovieCredits  = async (id) => {
-  return axios.get(`${BASE_URL}${END_POINT.details}/${id}/credits?api_key=${API_KEY}`).then(resp=>resp)
+  return axios.get(`${BASE_URL}${END_POINT.details}/${id}/credits?api_key=${API_KEY}`).then(resp=>resp.data)
   }
   
 export const getMovieReviews  = async (id) => {
-  return axios.get(`${BASE_URL}${END_POINT.details}/${id}/reviews?api_key=${API_KEY}`).then(resp=>resp)
+  return axios.get(`${BASE_URL}${END_POINT.details}/${id}/reviews?api_key=${API_KEY}`).then(resp=>resp.data)
   }
 

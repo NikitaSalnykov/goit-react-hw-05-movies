@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { getTrendingMovies } from 'services/tmdbAPI'
 
 export const TrendingList = () => {
-    const [trendingList, setTrendingList] = useState([])
+    const [trendingList, setTrendingList] = useState(null)
   
   useEffect(() => {
     const fetchData = async () => {
@@ -18,14 +18,12 @@ export const TrendingList = () => {
     
     fetchData();
   }, [])
-
-  console.log(trendingList);
   
   return (
-    <List>
+    trendingList ? <List>
       {trendingList.map(({title, name, overview, id, release_date, poster_path}, index)=> (
-        <TrendingItem key={id} title={title || name} overview={overview} release={release_date} poster_path={poster_path} rate={index} />
-      ))}
-    </List>
+        <TrendingItem key={id} title={title || name} overview={overview} release={release_date} poster_path={poster_path} rate={index} id={id}/>
+      ))} 
+    </List> : "Sorry"
   )
 }

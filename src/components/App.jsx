@@ -1,8 +1,10 @@
 import Layout from "./Layout/Layout";
-import NotFound from "./NotFound/NotFound";
 import { HomePage } from "./pages/HomePage";
 import { MoviesPage } from "./pages/MoviesPage";
 import { Routes, Route} from 'react-router-dom'
+import { MovieDateils } from "./MovieDateils/MovieDateils";
+import { Cast } from "./Cast/Cast";
+import { Reviews } from "./Reviews/Reviews";
 
 
 
@@ -13,7 +15,11 @@ export const App = () => {
       <Route path="/" element={<Layout/>}>
           <Route index element={<HomePage/>} />
           <Route path="movies" element={<MoviesPage />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="movies/:id" element={<MovieDateils />}>
+            <Route path="cast" element={<Cast/>} />
+            <Route path="reviews" element={<Reviews/>} />
+          </Route> 
+          <Route path="*" element={<MoviesPage />} />
         </Route>
     </Routes>
     </div>
