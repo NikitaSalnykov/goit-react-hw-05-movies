@@ -45,7 +45,6 @@ const MovieDateils = () => {
       return '#fc3';
     if (Math.round(voteAverage * 10) <= 50) return '#f00';
   };
-  console.log(Math.round(movie.vote_average * 10));
 
   return (
     <Section>
