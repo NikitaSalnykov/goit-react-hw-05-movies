@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { DivContainer, Section } from 'components/pages/HomePage.styled';
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import {
   Link,
   NavLink,
@@ -9,7 +9,7 @@ import {
   useParams,
 } from 'react-router-dom';
 import { getMovieDetails } from 'services/tmdbAPI';
-import { ListInform, MovieContainer } from './MovieDateils.styled';
+import { ListGenres, ListInform, MovieContainer, Score, ScoreText } from './MovieDateils.styled';
 
 export const MovieDateils = () => {
   const { id } = useParams();
@@ -29,6 +29,12 @@ export const MovieDateils = () => {
 
     fetchData();
   }, []);
+
+  const getScoreColor = (voteAverage) => {
+  if (Math.round(voteAverage * 10) > 70) return '#6c3';
+  if (Math.round(voteAverage * 10) > 50 && Math.round(voteAverage * 10) < 70) return '#fc3';
+  if (Math.round(voteAverage * 10) < 50) return '#f00';
+};
 
   return (
     <Section>
@@ -63,14 +69,14 @@ export const MovieDateils = () => {
               {movie.title}
               {movie.release_date && ` (${movie.release_date.slice(0, 4)})`}
             </h2>
-            <p>User Score: {Math.round(movie.vote_average * 10)}%</p>
+            <ScoreText>User Score: {movie.vote_average && <Score color={getScoreColor(movie.vote_average)}>{Math.round(movie.vote_average * 10)}</Score>}</ScoreText>
             <h3>Overview</h3>
             <p>{movie.overview}</p>
             <h3>Genres</h3>
-            <ul>
+            <ListGenres>
               {movie.genres &&
                 movie.genres.map(({ id, name }) => <li key={id}>{name}</li>)}
-            </ul>
+            </ListGenres>
           </div>
         </MovieContainer>
         <div>

@@ -6,3 +6,7 @@ export const LoaderForm = styled.div`
   right: 120px;
   top: 10px;
 `;
+
+export const ТextSearch = styled.div`
+text-align: center
+`;

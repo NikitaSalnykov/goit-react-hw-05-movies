@@ -5,6 +5,9 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import React from 'react';
+import { ReadMore, TrendingOverlay } from './TrendingItem.styled';
+import PropTypes from 'prop-types';
+
 
 export const TrendingItem = ({
   title,
@@ -14,9 +17,18 @@ export const TrendingItem = ({
   poster_path,
   id,
 }) => {
+
   const location = useLocation();
+  
+  const shortenedOverview = (overview) => {
+    return overview.length > 240
+      ? overview.split(' ').slice(0, 40).join(' ') + '...'
+      : overview
+  }
+
   return (
-    <ListItem alignItems="flex-start">
+    <TrendingOverlay>
+       <ListItem alignItems="flex-start">
       <ListItemAvatar>
         <Avatar
           alt={title}
@@ -27,7 +39,7 @@ export const TrendingItem = ({
           }
         />
       </ListItemAvatar>
-      <Link to={`${id}`} state={location}>
+      <Link to={`/movies/${id}`} state={location}>
         <ListItemText
           primary={rate + 1 ? `#${rate + 1} ${title}` : `${title}`}
           secondary={
@@ -40,11 +52,24 @@ export const TrendingItem = ({
               >
                 {release ? `Release: ${release}` : ''}
               </Typography>
-              {` ${overview}`}
+  {` ${shortenedOverview(overview)}`}
+             {overview.length > 240 && (
+                <ReadMore>Read more</ReadMore>
+              )}
             </React.Fragment>
           }
         />
       </Link>
     </ListItem>
+   </TrendingOverlay>
   );
+};
+
+TrendingItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  rate: PropTypes.number,
+  overview: PropTypes.string.isRequired,
+  release: PropTypes.string,
+  poster_path: PropTypes.string,
+  id: PropTypes.number.isRequired,
 };

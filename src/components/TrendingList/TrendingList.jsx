@@ -1,6 +1,6 @@
 import { List } from '@mui/material';
 import { TrendingItem } from 'components/TrendingItem/TrendingItem';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getTrendingMovies } from 'services/tmdbAPI';
 import { Loader } from 'components/Loader/Loader';
 
@@ -34,7 +34,7 @@ export const TrendingList = () => {
         <p>Oops, something went wrong, there is no connection to the server</p>
       ) : (
         trendingList.map(
-          ({ title, name, overview, id, release_date, poster_path }, index) => (
+          ({ title, name, overview, id, release_date, poster_path='https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'}, index) => (
             <TrendingItem
               key={id}
               title={title || name}
