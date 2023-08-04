@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { searchMovies } from 'services/tmdbAPI';
-import { DivContainer, Section } from './HomePage.styled';
-import { TrendingItem } from 'components/TrendingItem/TrendingItem';
+import { DivContainer, Section } from '../HomePage/HomePage.styled';
+import { MovieItems } from 'components/MovieItems/MovieItems';
 import { Button, List, TextField } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FormSearch } from 'components/MovieDateils/MovieDateils.styled';
+import { FormSearch } from 'components/pages/MovieDetails/MovieDetails.styled';
 import { Loader } from 'components/Loader/Loader';
 import { LoaderForm, ТextSearch } from './MoviePage.styled';
 
-export const MoviesPage = () => {
+const MoviesPage = () => {
   const [value, setValue] = useState('');
   const [searchParams, setSearchParams] = useSearchParams('query');
   const [films, setFilms] = useState(null);
@@ -93,18 +93,7 @@ export const MoviesPage = () => {
               Oops, something went wrong, there is no connection to the server
             </ТextSearch>
           ) : films != null && films.length > 0 ? (
-            films.map(
-              ({ title, name, overview, id, release_date, poster_path='https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg' }) => (
-                <TrendingItem
-                  key={id}
-                  title={title || name}
-                  overview={overview}
-                  release={release_date}
-                  poster_path={poster_path}
-                  id={id}
-                />
-              )
-            )
+            <MovieItems array={films} />
           ) : (
             <ТextSearch>Enter movie title to search</ТextSearch>
           )}
@@ -114,3 +103,5 @@ export const MoviesPage = () => {
     </Section>
   );
 };
+
+export default MoviesPage;

@@ -1,10 +1,14 @@
+import { lazy } from 'react';
 import Layout from './Layout/Layout';
-import { HomePage } from './pages/HomePage';
-import { MoviesPage } from './pages/MoviesPage';
-import { Routes, Route } from 'react-router-dom';
-import { MovieDateils } from './MovieDateils/MovieDateils';
-import { Cast } from './Cast/Cast';
-import { Reviews } from './Reviews/Reviews';
+import { Navigate, Route, Routes } from 'react-router-dom';
+
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+const MoviesPage = lazy(() => import('./pages/MoviePage/MoviesPage'));
+const MovieDetails = lazy(() =>
+  import('../components/pages/MovieDetails/MovieDetails')
+);
+const Cast = lazy(() => import('../components/Cast/Cast'));
+const Reviews = lazy(() => import('../components/Reviews/Reviews'));
 
 export const App = () => {
   return (
@@ -13,11 +17,11 @@ export const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="movies" element={<MoviesPage />} />
-          <Route path="movies/:id" element={<MovieDateils />}>
+          <Route path="movies/:id" element={<MovieDetails />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />
           </Route>
-          <Route path="*" element={<HomePage />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
     </div>

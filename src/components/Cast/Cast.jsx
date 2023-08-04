@@ -8,7 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { ListCast } from './Cast.styled';
 
-export const Cast = () => {
+const Cast = () => {
   const [cast, setCast] = useState([]);
   const params = useParams();
   const [notFoundText, setNotFoundText] = useState(false);
@@ -60,3 +60,5 @@ export const Cast = () => {
     </ListCast>
   );
 };
+
+export default Cast;

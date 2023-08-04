@@ -8,7 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { ListReviews } from './Reviews.styled';
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [notFoundText, setNotFoundText] = useState(false);
 
@@ -62,3 +62,5 @@ export const Reviews = () => {
     </ListReviews>
   );
 };
+
+export default Reviews;

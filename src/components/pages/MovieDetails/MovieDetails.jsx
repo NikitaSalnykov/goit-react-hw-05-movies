@@ -1,5 +1,8 @@
 import { Button } from '@mui/material';
-import { DivContainer, Section } from 'components/pages/HomePage.styled';
+import {
+  DivContainer,
+  Section,
+} from 'components/pages/HomePage/HomePage.styled';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import {
   Link,
@@ -9,9 +12,15 @@ import {
   useParams,
 } from 'react-router-dom';
 import { getMovieDetails } from 'services/tmdbAPI';
-import { ListGenres, ListInform, MovieContainer, Score, ScoreText } from './MovieDateils.styled';
+import {
+  ListGenres,
+  ListInform,
+  MovieContainer,
+  Score,
+  ScoreText,
+} from './MovieDetails.styled';
 
-export const MovieDateils = () => {
+const MovieDateils = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
   const location = useLocation();
@@ -30,11 +39,12 @@ export const MovieDateils = () => {
     fetchData();
   }, [id]);
 
-  const getScoreColor = (voteAverage) => {
-  if (Math.round(voteAverage * 10) > 70) return '#6c3';
-  if (Math.round(voteAverage * 10) > 50 && Math.round(voteAverage * 10) < 70) return '#fc3';
-  if (Math.round(voteAverage * 10) < 50) return '#f00';
-};
+  const getScoreColor = voteAverage => {
+    if (Math.round(voteAverage * 10) > 70) return '#6c3';
+    if (Math.round(voteAverage * 10) > 50 && Math.round(voteAverage * 10) < 70)
+      return '#fc3';
+    if (Math.round(voteAverage * 10) < 50) return '#f00';
+  };
 
   return (
     <Section>
@@ -69,7 +79,14 @@ export const MovieDateils = () => {
               {movie.title}
               {movie.release_date && ` (${movie.release_date.slice(0, 4)})`}
             </h2>
-            <ScoreText>User Score: {movie.vote_average && <Score color={getScoreColor(movie.vote_average)}>{Math.round(movie.vote_average * 10)}</Score>}</ScoreText>
+            <ScoreText>
+              User Score:{' '}
+              {movie.vote_average && (
+                <Score color={getScoreColor(movie.vote_average)}>
+                  {Math.round(movie.vote_average * 10)}
+                </Score>
+              )}
+            </ScoreText>
             <h3>Overview</h3>
             <p>{movie.overview}</p>
             <h3>Genres</h3>
@@ -110,3 +127,5 @@ export const MovieDateils = () => {
     </Section>
   );
 };
+
+export default MovieDateils;
