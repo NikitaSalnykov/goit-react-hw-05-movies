@@ -30,7 +30,7 @@ const Reviews = () => {
   return (
     <ListReviews>
       {notFoundText ? (
-        <p>We don`t have any information about cast for this movie</p>
+        <p>We don`t have any review for this movie</p>
       ) : (
         reviews.map(el => (
           <ListItem alignItems="flex-start" key={el.id}>

@@ -40,11 +40,12 @@ const MovieDateils = () => {
   }, [id]);
 
   const getScoreColor = voteAverage => {
-    if (Math.round(voteAverage * 10) > 70) return '#6c3';
+    if (Math.round(voteAverage * 10) >= 70) return '#6c3';
     if (Math.round(voteAverage * 10) > 50 && Math.round(voteAverage * 10) < 70)
       return '#fc3';
-    if (Math.round(voteAverage * 10) < 50) return '#f00';
+    if (Math.round(voteAverage * 10) <= 50) return '#f00';
   };
+  console.log(Math.round(movie.vote_average * 10));
 
   return (
     <Section>
@@ -81,10 +82,12 @@ const MovieDateils = () => {
             </h2>
             <ScoreText>
               User Score:{' '}
-              {movie.vote_average && (
+              {movie.vote_average ? (
                 <Score color={getScoreColor(movie.vote_average)}>
                   {Math.round(movie.vote_average * 10)}
                 </Score>
+              ) : (
+                <p>No information</p>
               )}
             </ScoreText>
             <h3>Overview</h3>
