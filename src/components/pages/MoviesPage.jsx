@@ -1,58 +1,119 @@
-import { Container } from '@mui/system';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { searchMovies } from 'services/tmdbAPI';
-import { Section } from './HomePage.styled';
+import { DivContainer, Section } from './HomePage.styled';
 import { TrendingItem } from 'components/TrendingItem/TrendingItem';
+import { Button, List, TextField } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FormSearch } from 'components/MovieDateils/MovieDateils.styled';
+import { Loader } from 'components/Loader/Loader';
+import { LoaderForm } from './MoviePage.styled';
 
 export const MoviesPage = () => {
   const [value, setValue] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams('');
-  const [films, setFilms] = useState([]);
-  const search = searchParams.get('value') ?? '';
+  const [searchParams, setSearchParams] = useSearchParams('query');
+  const [films, setFilms] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [notFoundText, setNotFoundText] = useState(false);
+  const prevValueRef = useRef('');
+
+  const search = searchParams.get('query') ?? '';
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await searchMovies(search.trim());
-      setFilms(response.results);
+      try {
+        const response = await searchMovies(search);
+        prevValueRef.current = value;
+        setIsLoading(true);
+        setFilms(response.results);
+        setNotFoundText(false);
+        if (films && response.results.length === 0) {
+          setIsLoading(false);
+          setFilms(null);
+          return toast.error(`'${value}' not found`, {
+            autoClose: 3500,
+            hideProgressBar: false,
+            theme: 'dark',
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setNotFoundText(true);
+        setFilms(null);
+        setIsLoading(false);
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     fetchData();
   }, [search]);
-
-  console.log(films);
+  дело;
 
   const handleSearch = e => {
     e.preventDefault();
-    setSearchParams({ value });
+    console.log(setSearchParams);
+
+    setSearchParams({ query: value });
+    setIsLoading(true);
+    if (prevValueRef.current === value) {
+      if (value === '') toast.info('Enter movie title to search');
+      return setTimeout(() => {
+        setIsLoading(false);
+      }, 300);
+    }
   };
 
   return (
     <Section>
-      <Container>
-        <form onSubmit={handleSearch}>
-          <input
-            type="text"
+      <DivContainer>
+        <FormSearch onSubmit={handleSearch} style={{ position: 'relative' }}>
+          <TextField
+            fullWidth
+            label="Search movie"
             value={value}
             onChange={e => setValue(e.target.value)}
-            placeholder="search movie"
           />
-          <button type="submit">Search</button>
-        </form>
-        <ul>
-          {films.map(
-            ({ title, name, overview, id, release_date, poster_path }) => (
-              <TrendingItem
-                key={id}
-                title={title || name}
-                overview={overview}
-                release={release_date}
-                poster_path={poster_path}
-                id={id}
-              />
-            )
+          {isLoading && (
+            <LoaderForm>
+              <Loader style={{ height: 20, width: 20 }} />
+            </LoaderForm>
           )}
-        </ul>
-      </Container>
+          <Button
+            variant="contained"
+            size="large"
+            type="submit"
+            id="fullWidth"
+            style={{ backgroundColor: 'orange', color: 'black' }}
+          >
+            Search
+          </Button>
+        </FormSearch>
+        <List>
+          {notFoundText ? (
+            <p>
+              Oops, something went wrong, there is no connection to the server
+            </p>
+          ) : films != null && films.length > 0 ? (
+            films.map(
+              ({ title, name, overview, id, release_date, poster_path }) => (
+                <TrendingItem
+                  key={id}
+                  title={title || name}
+                  overview={overview}
+                  release={release_date}
+                  poster_path={poster_path}
+                  id={id}
+                />
+              )
+            )
+          ) : (
+            <p>Enter movie title to search</p>
+          )}
+        </List>
+        <ToastContainer />
+      </DivContainer>
     </Section>
   );
 };

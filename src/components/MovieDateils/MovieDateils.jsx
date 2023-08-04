@@ -16,7 +16,6 @@ export const MovieDateils = () => {
   const [movie, setMovie] = useState({});
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state ?? '/movies');
-  console.log(backLinkLocationRef);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,8 +29,6 @@ export const MovieDateils = () => {
 
     fetchData();
   }, []);
-
-  const poster = `https://image.tmdb.org/t/p/w200/${movie.poster_path}`;
 
   return (
     <Section>
@@ -51,7 +48,11 @@ export const MovieDateils = () => {
 
         <MovieContainer>
           <img
-            src={poster}
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w200/${movie.poster_path}`
+                : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
+            }
             alt={movie.title}
             loading="lazy"
             width={600}

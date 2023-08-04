@@ -15,16 +15,19 @@ export const TrendingItem = ({
   id,
 }) => {
   const location = useLocation();
-
   return (
     <ListItem alignItems="flex-start">
       <ListItemAvatar>
         <Avatar
           alt={title}
-          src={`https://image.tmdb.org/t/p/w200/${poster_path}`}
+          src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/w200/${poster_path}`
+              : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
+          }
         />
       </ListItemAvatar>
-      <Link to={`movies/${id}`} state={location}>
+      <Link to={`${id}`} state={location}>
         <ListItemText
           primary={rate + 1 ? `#${rate + 1} ${title}` : `${title}`}
           secondary={

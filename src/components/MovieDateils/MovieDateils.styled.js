@@ -26,7 +26,6 @@ export const MovieContainer = styled.div`
   @media screen and (min-width: 768px) {
     flex-direction: row;
   }
-
   & a {
     padding: 50px;
   }
@@ -35,5 +34,10 @@ export const MovieContainer = styled.div`
 export const ListInform = styled.ul`
   display: flex;
   gap: 20px;
+  margin-bottom: 24px;
+`;
+export const FormSearch = styled.form`
+  display: flex;
+  gap: 8px;
   margin-bottom: 24px;
 `;

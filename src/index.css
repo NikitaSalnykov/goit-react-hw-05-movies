@@ -28,16 +28,17 @@ img {
   height: auto;
 }
 
-a{
+a {
   color: inherit;
   text-decoration: none;
 }
 
-.active{
-  color: rgb(235, 231, 0);
+.active {
+  color: orange;
 }
 
-ul, li {
+ul,
+li {
   margin: 0;
   padding: 0;
   list-style: none;
