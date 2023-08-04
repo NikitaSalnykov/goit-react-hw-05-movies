@@ -25,7 +25,7 @@ export const Reviews = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [params.id]);
 
   return (
     <ListReviews>

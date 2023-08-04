@@ -24,14 +24,13 @@ export const MoviesPage = () => {
     const fetchData = async () => {
       try {
         const response = await searchMovies(search);
-        prevValueRef.current = value;
         setIsLoading(true);
         setFilms(response.results);
         setNotFoundText(false);
-        if (films && response.results.length === 0) {
+        if (search && response.results.length === 0) {
           setIsLoading(false);
           setFilms(null);
-          return toast.error(`'${value}' not found`, {
+          return toast.error(`Movie not found`, {
             autoClose: 3500,
             hideProgressBar: false,
             theme: 'dark',
@@ -52,7 +51,7 @@ export const MoviesPage = () => {
 
   const handleSearch = e => {
     e.preventDefault();
-
+    prevValueRef.current = value;
     setSearchParams({ query: value });
     setIsLoading(true);
     if (prevValueRef.current === value) {

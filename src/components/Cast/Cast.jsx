@@ -24,7 +24,7 @@ export const Cast = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [params.id]);
 
   return (
     <ListCast>

@@ -28,7 +28,7 @@ export const MovieDateils = () => {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   const getScoreColor = (voteAverage) => {
   if (Math.round(voteAverage * 10) > 70) return '#6c3';
