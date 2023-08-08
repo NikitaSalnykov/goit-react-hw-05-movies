@@ -11,12 +11,18 @@ import {
 export const RecommendedMovies = () => {
   const location = useLocation();
   const [recommended, setRecommended] = useState([]);
-  
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const recommendedArray = ['princess mononoke', 'La La Land', 'Calvary', 'Blade Runner 2049', 'The Grand Budapest Hotel', 'Gayniggers from Outer Space'];
+        const recommendedArray = [
+          'princess mononoke',
+          'La La Land',
+          'Calvary',
+          'Blade Runner 2049',
+          'The Grand Budapest Hotel',
+          'Gayniggers from Outer Space',
+        ];
         const recommendedData = [];
         for (const film of recommendedArray) {
           console.log(film);
@@ -35,7 +41,7 @@ export const RecommendedMovies = () => {
   return (
     <MoviesContainer>
       {recommended.map((movie, index) => (
-        (<MovieItem key={index}>
+        <MovieItem key={index}>
           <BigImage
             src={
               movie.poster_path
@@ -44,11 +50,14 @@ export const RecommendedMovies = () => {
             }
             alt={movie.title}
           />
-           <MovieTitle><Link to={`/movies/${movie.id}`} state={location}>{movie.title}   {movie.release_date && ` (${movie.release_date.slice(0, 4)})`}</Link></MovieTitle>
-        </MovieItem>) 
-      )
-      )
-      }
+          <MovieTitle>
+            <Link to={`/movies/${movie.id}`} state={location}>
+              {movie.title}{' '}
+              {movie.release_date && ` (${movie.release_date.slice(0, 4)})`}
+            </Link>
+          </MovieTitle>
+        </MovieItem>
+      ))}
     </MoviesContainer>
   );
 };

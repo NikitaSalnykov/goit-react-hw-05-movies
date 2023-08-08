@@ -5,6 +5,16 @@ export const ReadMore = styled.span`
   text-decoration: underline;
 `;
 
+export const ScoreAvatar = styled.div`
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease-out;
+  top: 0;
+  opacity: 0;
+`;
+
 export const ListItems = styled.li`
   border: 1px solid rgb(255 159 0 / 0%);
   border-radius: 12px;
@@ -35,11 +45,14 @@ export const ListItems = styled.li`
     transform: scale(1.01) translateX(22px);
     border: 1px solid lightgray;
   }
+  &:hover div div {
+    opacity: 100%;
+  }
 `;
 
 export const MovieItemsOverlay = styled.span`
-justify-content: space-between;
-    align-items: center;
-    display: flex;
-    gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  gap: 15px;
 `;

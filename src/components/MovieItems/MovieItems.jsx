@@ -4,8 +4,10 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import { ListItems, ReadMore } from './MovieItems.styled';
+import { ListItems, ReadMore, ScoreAvatar } from './MovieItems.styled';
 import PropTypes from 'prop-types';
+import { Score } from 'components/pages/MovieDetails/MovieDetails.styled';
+import { getScoreColor } from 'helpers/helpers';
 
 export const MovieItems = ({ array }) => {
   const location = useLocation();
@@ -25,13 +27,16 @@ export const MovieItems = ({ array }) => {
             name,
             overview,
             id,
+            vote_average,
             release_date,
             poster_path = 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg',
           },
           index
         ) => (
           <ListItems key={id}>
-            <ListItemAvatar>
+            <ListItemAvatar
+              style={{ position: 'relative', overflow: 'hidden' }}
+            >
               <Avatar
                 alt={title || name}
                 src={
@@ -40,6 +45,13 @@ export const MovieItems = ({ array }) => {
                     : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
                 }
               />
+              {vote_average !== 0 && (
+                <ScoreAvatar>
+                  <Score color={getScoreColor(vote_average)}>
+                    {Math.round(vote_average * 10)}
+                  </Score>
+                </ScoreAvatar>
+              )}
             </ListItemAvatar>
             <Link to={`/movies/${id}`} state={location}>
               <ListItemText
