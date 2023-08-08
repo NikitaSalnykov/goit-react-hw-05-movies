@@ -4,6 +4,7 @@ import { MovieItems } from 'components/MovieItems/MovieItems';
 import { useEffect, useState } from 'react';
 import { getTrendingMovies } from 'services/tmdbAPI';
 import { Loader } from 'components/Loader/Loader';
+import { RecommendedMovies } from 'components/RecommendedMovies/RecommendedMovies';
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +32,7 @@ const HomePage = () => {
   return (
     <Section>
       <DivContainer>
+        <RecommendedMovies />
         <h2>Trending today:</h2>
         <List>
           {isLoading && <Loader />}
