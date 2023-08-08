@@ -3,6 +3,7 @@ import {
   DivContainer,
   Section,
 } from 'components/pages/HomePage/HomePage.styled';
+import { getScoreColor } from 'helpers/helpers';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import {
   Link,
@@ -39,12 +40,7 @@ const MovieDateils = () => {
     fetchData();
   }, [id]);
 
-  const getScoreColor = voteAverage => {
-    if (Math.round(voteAverage * 10) >= 70) return '#6c3';
-    if (Math.round(voteAverage * 10) > 50 && Math.round(voteAverage * 10) < 70)
-      return '#fc3';
-    if (Math.round(voteAverage * 10) <= 50) return '#f00';
-  };
+
 
   return (
     <Section>

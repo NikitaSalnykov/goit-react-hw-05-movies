@@ -30,9 +30,20 @@ const HomePage = () => {
   }, []);
 
   return (
+    <>
+    <Section>
+        <DivContainer>
+          <h2 style={{ marginBottom: 28 }}>🍿 Popcorn recommended:</h2>
+                    {isLoading && <Loader />}
+          {notFoundText ? (
+            <p>
+              Oops, something went wrong, there is no connection to the server
+            </p>
+          ) : (<RecommendedMovies />)}
+      </DivContainer>
+    </Section>
     <Section>
       <DivContainer>
-        <RecommendedMovies />
         <h2>Trending today:</h2>
         <List>
           {isLoading && <Loader />}
@@ -44,9 +55,11 @@ const HomePage = () => {
             <MovieItems array={trendingList} />
           )}
         </List>
-      </DivContainer>
+</DivContainer>
     </Section>
+    </>
   );
+
 };
 
 export default HomePage;

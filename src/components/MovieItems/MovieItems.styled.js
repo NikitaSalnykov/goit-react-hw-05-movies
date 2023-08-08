@@ -36,3 +36,10 @@ export const ListItems = styled.li`
     border: 1px solid lightgray;
   }
 `;
+
+export const MovieItemsOverlay = styled.span`
+justify-content: space-between;
+    align-items: center;
+    display: flex;
+    gap: 15px;
+`;

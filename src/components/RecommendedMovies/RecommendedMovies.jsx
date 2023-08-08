@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { recommendedMovies } from 'services/tmdbAPI';
 import {
   BigImage,
-  MediumImage,
   MovieItem,
-  MovieTitle,
   MoviesContainer,
-  SmallImage,
+  MovieTitle,
 } from './RecommendedMovies.styled';
 
 export const RecommendedMovies = () => {
+  const location = useLocation();
   const [recommended, setRecommended] = useState([]);
-  const recommendedArray = ['Terminator', 'Lion', 'Class', 'Non', 'XXX'];
-
+  
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const recommendedArray = ['princess mononoke', 'La La Land', 'Calvary', 'Blade Runner 2049', 'The Grand Budapest Hotel', 'Gayniggers from Outer Space'];
         const recommendedData = [];
         for (const film of recommendedArray) {
           console.log(film);
@@ -34,38 +35,20 @@ export const RecommendedMovies = () => {
   return (
     <MoviesContainer>
       {recommended.map((movie, index) => (
-        <MovieItem key={index} isBig={index === 0}>
-          {index === 0 ? (
-            <BigImage
-              src={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w400/${movie.poster_path}`
-                  : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
-              }
-              alt={movie.title}
-            />
-          ) : index % 2 === 1 ? (
-            <MediumImage
-              src={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w200/${movie.poster_path}`
-                  : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
-              }
-              alt={movie.title}
-            />
-          ) : (
-            <SmallImage
-              src={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w200/${movie.poster_path}`
-                  : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
-              }
-              alt={movie.title}
-            />
-          )}
-          <MovieTitle>{movie.title}</MovieTitle>
-        </MovieItem>
-      ))}
+        (<MovieItem key={index}>
+          <BigImage
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w400/${movie.poster_path}`
+                : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
+            }
+            alt={movie.title}
+          />
+           <MovieTitle><Link to={`/movies/${movie.id}`} state={location}>{movie.title}   {movie.release_date && ` (${movie.release_date.slice(0, 4)})`}</Link></MovieTitle>
+        </MovieItem>) 
+      )
+      )
+      }
     </MoviesContainer>
   );
 };
